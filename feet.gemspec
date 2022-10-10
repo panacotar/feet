@@ -8,17 +8,17 @@ Gem::Specification.new do |spec|
   spec.authors = ["Darius Pirvulescu"]
   spec.email = ["organicdarius@gmail.com"]
 
-  spec.summary = "TODO: Write a short summary, because RubyGems requires one."
-  spec.description = "TODO: Write a longer description or delete this line."
-  spec.homepage = "TODO: Put your gem's website or public repo URL here."
+  spec.summary = "Hairy rails twin"
+  spec.description = "A more down to earth, hairy rails twin"
+  spec.homepage = "https://i.etsystatic.com/13348558/r/il/a29ab1/2918306283/il_570xN.2918306283_ojql.jpg"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 2.6.0"
 
   spec.metadata["allowed_push_host"] = "TODO: Set to your gem server 'https://example.com'"
 
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "TODO: Put your gem's public repo URL here."
-  spec.metadata["changelog_uri"] = "TODO: Put your gem's CHANGELOG.md URL here."
+  spec.metadata["source_code_uri"] = "https://i.etsystatic.com/13348558/r/il/a29ab1/2918306283/il_570xN.2918306283_ojql.jpg"
+  spec.metadata["changelog_uri"] = "https://i.etsystatic.com/13348558/r/il/a29ab1/2918306283/il_570xN.2918306283_ojql.jpg"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
