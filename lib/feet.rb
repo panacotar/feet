@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "feet/version"
+require 'feet/array'
 
 module Feet
   class Error < StandardError; end
