@@ -10,4 +10,8 @@ class Array
   def blank?
     respond_to?(:empty?) ? !!empty? : !self
   end
+
+  def all_strings?
+    all? { |c| c.is_a? String }
+  end
 end
