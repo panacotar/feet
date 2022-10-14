@@ -12,6 +12,7 @@ class Array
   end
 
   def all_strings?
-    all? { |c| c.is_a? String }
+    # all? { |c| c.is_a? String }
+    all?(String)
   end
 end
