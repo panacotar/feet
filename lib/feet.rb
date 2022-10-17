@@ -9,7 +9,7 @@ module Feet
   class Application
     def call(env)
       `echo #{env} > debug.txt`;
-      [200, {'Content-Type' => 'text/json'},
+      [200, {'Content-Type' => 'text/html'},
         ["Hello from Ruby on Feet!"]]
     end
   end
