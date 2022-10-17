@@ -2,15 +2,17 @@
 
 require_relative "feet/version"
 require 'feet/array'
+require 'json'
 
 module Feet
   class Error < StandardError; end
 
   class Application
     def call(env)
-      `echo debug > debug.txt`;
-      [200, {'Content-Type' => 'text/html'},
-        ["Hello from Ruby on Feet!"]]
+      body = {username: 'andrew', favorite_color: 'green'}.to_json
+      `echo #{body} > debug.txt`;
+      [200, {'Content-Type' => 'text/json'},
+        ["#{body}"]]
     end
   end
 end
