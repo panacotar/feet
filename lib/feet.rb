@@ -12,7 +12,7 @@ module Feet
       `echo "first #{env}" > debug.txt`;
       klass, action = get_controller_and_action(env)
       controller = klass.new(env)
-      text = controller.send(action, 'sent from feet')
+      text = controller.send(action, *['sent from feet', 'moar'])
 
       [200, {'Content-Type' => 'text/html'},
         [text]]
