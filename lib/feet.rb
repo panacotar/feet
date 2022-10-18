@@ -2,15 +2,22 @@
 
 require_relative "feet/version"
 require 'feet/array'
+require 'feet/routing'
 
 module Feet
   class Error < StandardError; end
 
   class Application
     def call(env)
-      `echo #{env} > debug.txt`;
+      `echo "first #{env}" > debug.txt`;
+      klass, action = get_controller_and_action(env)
+      controller = klass.new(env)
+      text = controller.send(action)
+
       [200, {'Content-Type' => 'text/html'},
-        ["Hello from Ruby on Feet!"]]
+        [text]]
+    end
+  end
     end
   end
 end
