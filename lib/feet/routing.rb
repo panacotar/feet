@@ -8,5 +8,10 @@ module Feet
 
       [Object.const_get(cont), action]
     end
+
+    def post?(env)
+      env['REQUEST_METHOD'] == 'POST'
+    end
+
   end
 end
