@@ -19,6 +19,11 @@ module Feet
         `echo "a new POST #{env['PATH_INFO']}" > debug.txt`;
       end
 
+      begin
+        text = controller.send(action)
+      rescue
+        text = "<p style='color:red;'>Something went wrong</p>"
+      end
 
       [200, {'Content-Type' => 'text/html'},
         [text]]
