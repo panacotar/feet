@@ -9,7 +9,7 @@ module Feet
 
   class Application
     def call(env)
-      `echo "first #{env}" > debug.txt`;
+
       klass, action = get_controller_and_action(env)
       controller = klass.new(env)
       text = controller.send(action)
