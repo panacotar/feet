@@ -14,7 +14,7 @@ module Feet
         return [404, {'Content-Type' => 'text/html'}, []]
       end
       if env["PATH_INFO"] == "/default"
-        path = File.expand_path('../public/index.html', __FILE__)
+        path = File.expand_path('../public/index.html', __dir__)
         return [200, {"Content-Type" => "text/html"}, File.open(path)]
       end
       klass, action = get_controller_and_action(env)
