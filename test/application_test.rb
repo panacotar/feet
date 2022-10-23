@@ -16,7 +16,6 @@ class FeetTestApp < Minitest::Test
     assert last_response.ok?
     body = last_response.body
     p body
-    p last_response
     assert body['Hello']
   end
 
@@ -26,3 +25,8 @@ class FeetTestApp < Minitest::Test
     assert !last_response.ok?
     p last_response
   end
+
+  def test_all_strings
+    assert [1, '', nil].all_strings? == false
+  end
+end
