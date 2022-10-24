@@ -3,6 +3,7 @@
 require_relative "feet/version"
 require 'feet/array'
 require 'feet/routing'
+require 'feet/dependencies'
 
 module Feet
   class Error < StandardError; end
