@@ -1,7 +1,9 @@
 class Object
   def self.const_missing(c)
-    warn "Missing constant #{c.inspect}!"
+    # STDERR.puts "Missing constant #{c.inspect}!"
+    require "./bobo.rb"
+    Bobo
   end
 end
 
-Bobo
+Bobo.new.print_bobo
