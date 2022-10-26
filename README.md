@@ -30,6 +30,9 @@ Run all the tests with the following command:
 ```
 ruby test/application_test.rb
 ```
+Currently, the following tests are available:
+- application_test.rb
+- utils_test.rb
 
 ## Contributing
 
