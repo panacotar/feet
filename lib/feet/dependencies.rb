@@ -5,8 +5,6 @@ class Object
     require_relative '../utils/namespace.rb'
     namesp = Namespace.new
 
-    `echo #{namesp.to_snake_case(c.to_s)} >> fail.txt`
-    `echo called #{@const_missing_called.to_s} >> fail.txt`
     @const_missing_called = c.to_s
     require namesp.to_snake_case(c.to_s)
     klass = Object.const_get(c)
