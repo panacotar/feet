@@ -1,7 +1,7 @@
 class Object
   def self.const_missing(c)
     # STDERR.puts "Missing constant #{c.inspect}!"
-    require "./bobo.rb"
+    require_relative "./bobo.rb"
     Bobo
   end
 end
