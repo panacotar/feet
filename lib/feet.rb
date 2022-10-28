@@ -3,13 +3,13 @@
 require_relative "feet/version"
 require 'feet/array'
 require 'feet/routing'
+require 'feet/dependencies'
 
 module Feet
   class Error < StandardError; end
 
   class Application
     def call(env)
-
       if env['PATH_INFO'] == '/favicon.ico'
         return [404, {'Content-Type' => 'text/html'}, []]
       end
