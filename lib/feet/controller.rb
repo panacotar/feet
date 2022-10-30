@@ -8,6 +8,9 @@ module Feet
       @env
     end
 
+    def me
+      self.class.to_s.split('Controller').first.downcase
+    end
 
   end
 end
