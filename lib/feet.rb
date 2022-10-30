@@ -4,6 +4,7 @@ require_relative "feet/version"
 require 'feet/array'
 require 'feet/routing'
 require 'feet/dependencies'
+require 'feet/controller'
 
 module Feet
   class Error < StandardError; end
@@ -39,16 +40,6 @@ module Feet
 
       [200, {'Content-Type' => 'text/html'},
         [text]]
-    end
-  end
-
-  class Controller
-    def initialize(env)
-      @env = env
-    end
-
-    def env
-      @env
     end
   end
 end
