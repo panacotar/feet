@@ -29,13 +29,15 @@ module Feet
       controller = klass.new(env)
 
       if post?(env)
-        `echo "a new POST #{env['PATH_INFO']}" > debug.txt`;
+        `echo "a new POST #{env['PATH_INFO']}" > debug.txt`
       end
 
       begin
         text = controller.send(action)
-      rescue
-        text = "<p style='color:red;'>Something went wrong</p>"
+      rescue StandardError => e
+        puts e
+        text = "<h2>Something went wrong</h2>
+                <h3 style='color:red;'>#{e}</h3>"
       end
 
       [200, {'Content-Type' => 'text/html'},
