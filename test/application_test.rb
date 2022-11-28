@@ -1,6 +1,15 @@
 require_relative 'test_helper'
 
+class TestController < Feet::Controller
+  def index
+    "Hello!" # This is not rendering a view
+  end
+end
+
 class TestApp < Feet::Application
+  def get_controller_and_action(env)
+    [TestController, "index"]
+  end
 end
 
 class FeetTestApp < Minitest::Test
