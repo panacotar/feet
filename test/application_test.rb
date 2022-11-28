@@ -24,15 +24,7 @@ class FeetTestApp < Minitest::Test
 
     assert last_response.ok?
     body = last_response.body
-    p body
     assert body['Hello']
-  end
-
-  def test_path
-    get '/path'
-
-    assert !last_response.ok?
-    p last_response
   end
 
   def test_all_strings
