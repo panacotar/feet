@@ -1,12 +1,14 @@
 PATH
   remote: .
   specs:
-    feet (0.0.2)
+    feet (0.0.4)
+      erubis
       rack (~> 2.2)
 
 GEM
   remote: https://rubygems.org/
   specs:
+    erubis (2.7.0)
     minitest (5.16.3)
     rack (2.2.4)
     rack-test (2.0.2)
