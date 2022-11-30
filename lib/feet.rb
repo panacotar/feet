@@ -5,6 +5,7 @@ require 'feet/array'
 require 'feet/routing'
 require 'feet/dependencies'
 require 'feet/controller'
+require 'feet/utils'
 
 module Feet
   class Error < StandardError; end
