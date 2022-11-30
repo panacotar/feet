@@ -18,6 +18,14 @@ module Feet
       Feet::VERSION
     end
 
+    def instance_vars
+      vars = {}
+      instance_variables.each do |name|
+        vars[name[1..-1]] = instance_variable_get name.to_sym
+      end
+      vars
+    end
+
     def controller_name
       # self.class.to_s.split('Controller').first.downcase
       klass = self.class
