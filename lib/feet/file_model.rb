@@ -25,7 +25,7 @@ module Feet
       def self.find(id)
         begin
           FileModel.new("db/quotes/#{id}.json")
-        rescue => e
+        rescue Errno::ENOENT
           nil
         end
       end
