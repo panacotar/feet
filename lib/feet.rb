@@ -4,6 +4,8 @@ require_relative "feet/version"
 require 'feet/array'
 require 'feet/routing'
 require 'feet/dependencies'
+require 'feet/controller'
+require 'feet/utils'
 
 module Feet
   class Error < StandardError; end
@@ -28,27 +30,19 @@ module Feet
       controller = klass.new(env)
 
       if post?(env)
-        `echo "a new POST #{env['PATH_INFO']}" > debug.txt`;
+        `echo "a new POST #{env['PATH_INFO']}" > debug.txt`
       end
 
       begin
         text = controller.send(action)
-      rescue
-        text = "<p style='color:red;'>Something went wrong</p>"
+      rescue StandardError => e
+        puts e
+        text = "<h2>Something went wrong</h2>
+                <h3 style='color:red;'>#{e}</h3>"
       end
 
       [200, {'Content-Type' => 'text/html'},
         [text]]
-    end
-  end
-
-  class Controller
-    def initialize(env)
-      @env = env
-    end
-
-    def env
-      @env
     end
   end
 end
