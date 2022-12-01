@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
-require_relative "feet/version"
+require_relative 'feet/version'
 require 'feet/array'
 require 'feet/routing'
 require 'feet/dependencies'
 require 'feet/controller'
 require 'feet/utils'
+require 'feet/file_model'
 
 module Feet
   class Error < StandardError; end
