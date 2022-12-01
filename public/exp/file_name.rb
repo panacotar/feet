@@ -12,4 +12,6 @@ p id
 
 file = Feet::Model::FileModel.new(name)
 
-p file.send(:[], 'Marco')
+# p file.send(:[], 'Marco')
+
+p file['Marco']
