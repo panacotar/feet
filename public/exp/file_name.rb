@@ -1,6 +1,10 @@
 require_relative '../../lib/feet/file_model.rb'
 
-name = 'public/exp/db/quotes/3.json'
+path = 'public/exp/db/quotes/3.json'
+
+base = File.dirname(__FILE__)
+
+name = File.join(base, path)
 
 basename = File.split(name)[-1]
 
@@ -10,6 +14,6 @@ id = File.basename(basename, '.json').to_i
 
 p id
 
-file = Feet::Model::FileModel.new(name)
+file = Feet::Model::FileModel.new(path)
 
 p file['Marco']
