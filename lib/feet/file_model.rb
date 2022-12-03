@@ -63,6 +63,21 @@ module Feet
         # Create new FileModel instance with the new file
         FileModel.new new_filename
       end
+
+      def save
+        return 'No valid hash' unless @hash
+
+        # Turn hash into JSON
+        json = MultiJson.dump @hash
+
+        # Write JSON to file
+        File.open(@filename, 'w') do |f|
+          f.write(json)
+        end
+
+        # Return the hash
+        @hash
+      end
     end
   end
 end
