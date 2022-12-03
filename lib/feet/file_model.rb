@@ -67,12 +67,15 @@ module Feet
       def save
         return 'No valid hash' unless @hash
 
-        # Turn hash into JSON
-        json = MultiJson.dump @hash
-
         # Write JSON to file
         File.open(@filename, 'w') do |f|
-          f.write(json)
+          f.write <<~TEMPLATE
+            {
+                "submitter": "#{@hash['submitter']}",
+                "quote": "#{@hash['quote']}",
+                "attribution": "#{@hash['attribution']}"
+            }
+          TEMPLATE
         end
 
         # Return the hash
