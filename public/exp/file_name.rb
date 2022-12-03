@@ -18,6 +18,15 @@ file = Feet::Model::FileModel.new(path)
 
 p file['Marco']
 
+def find(id)
+  found = Feet::Model::FileModel.find(id)
+
+  puts 'found'
+  p found
+end
+
+find(3)
+
 def index
   files = Dir['public/exp/db/quotes/*.json']
 
