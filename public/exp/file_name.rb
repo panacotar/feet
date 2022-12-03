@@ -17,3 +17,13 @@ p id
 file = Feet::Model::FileModel.new(path)
 
 p file['Marco']
+
+def index
+  files = Dir['public/exp/db/quotes/*.json']
+
+  files.map { |f| Feet::Model::FileModel.new f }
+
+  p files
+end
+
+index
