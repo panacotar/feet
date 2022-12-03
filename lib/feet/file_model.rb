@@ -45,7 +45,7 @@ module Feet
         # Find highest id
         files = Dir['db/quotes/*.json']
         names = files.map { |f| File.split(f)[-1] } # transform to_i here?
-        highest = names.map { |n| n.to_i }.max
+        highest = names.map(&:to_i).max
         id = highest + 1
 
         # Open and write the new file
