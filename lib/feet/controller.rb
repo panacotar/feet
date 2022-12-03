@@ -1,7 +1,10 @@
 require 'erubis'
+require 'feet/file_model'
 
 module Feet
   class Controller
+    include Feet::Model
+
     def initialize(env)
       @env = env
     end
