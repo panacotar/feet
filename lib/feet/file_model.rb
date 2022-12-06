@@ -26,14 +26,12 @@ module Feet
         id = id.to_i
         @dm_style_cache ||= {}
         begin
-          if @dm_style_cache[id]
-            return @dm_style_cache[id]
-          else
-            found = FileModel.new("db/quotes/#{id}.json")
-            @dm_style_cache[id] = found
-            found
-          end
-        rescue
+          return @dm_style_cache[id] if @dm_style_cache[id]
+
+          found = FileModel.new("db/quotes/#{id}.json")
+          @dm_style_cache[id] = found
+          found
+        rescue Errno::ENOENT
           nil
         end
       end
