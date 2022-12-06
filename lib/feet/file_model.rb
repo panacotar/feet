@@ -23,9 +23,17 @@ module Feet
       end
 
       def self.find(id)
+        id = id.to_i
+        @dm_style_cache ||= {}
         begin
-          FileModel.new("db/quotes/#{id}.json")
-        rescue Errno::ENOENT
+          if @dm_style_cache[id]
+            return @dm_style_cache[id]
+          else
+            found = FileModel.new("db/quotes/#{id}.json")
+            @dm_style_cache[id] = found
+            found
+          end
+        rescue
           nil
         end
       end
