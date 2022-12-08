@@ -110,8 +110,7 @@ module Feet
         base = /^find_all_by_(.*)/
         if m.to_s.start_with? base
           key = m.to_s.match(base)[1]
-          quotes = FileModel.all
-          quotes.select { |q| q[key] == args.first }
+          find_all_by_attribute(key, args[0])
         else
           super
         end
