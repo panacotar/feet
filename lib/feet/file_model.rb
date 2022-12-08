@@ -92,10 +92,10 @@ module Feet
         id = 1
         results = []
         loop do
-          m = FileModel.find(id)
-          return results unless m
+          model = find(id)
+          return results unless model
 
-          results.push(m) if m[attribute] == value
+          results.push(model) if model[attribute] == value
           id += 1
         end
       end
@@ -103,7 +103,7 @@ module Feet
       def self.find_all_by_submitter(name = '')
         return [] unless name
 
-        FileModel.find_all_by_attribute('submitter', name)
+        find_all_by_attribute('submitter', name)
       end
 
       def self.method_missing(m, *args)
