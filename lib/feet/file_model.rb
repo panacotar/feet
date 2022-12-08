@@ -88,11 +88,17 @@ module Feet
         @hash
       end
 
+      def self.find_all_by_attribute(attribute, value)
+        return [] unless attribute || value
+
+        quotes = FileModel.all
+        quotes.select { |q| q[attribute] == value }
+      end
+
       def self.find_all_by_submitter(name = '')
         return [] unless name
 
-        quotes = FileModel.all
-        quotes.select { |q| q['submitter'] == name }
+        FileModel.find_all_by_attribute('submitter', name)
       end
 
       def self.method_missing(m, *args)
