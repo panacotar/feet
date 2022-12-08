@@ -88,12 +88,27 @@ module Feet
         @hash
       end
 
-      def self.find_all_by_submitter(name='')
-        name ||= 'Andrew'
+      def self.find_all_by_submitter(name = '')
+        return [] unless name
 
         quotes = FileModel.all
         quotes.select { |q| q['submitter'] == name }
       end
+
+      def self.method_missing(m, *args)
+        base = /^find_all_by_(.*)/
+        if m.to_s.start_with? base
+          key = m.to_s.match(base)[1]
+          quotes = FileModel.all
+          quotes.select { |q| q[key] == args.first }
+        else
+          super
+        end
+      end
+    end
+
+    def self.respond_to_missing?(method_name)
+      method_name.to_s.start_with?('find_all_by_') || super
     end
   end
 end
