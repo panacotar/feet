@@ -87,6 +87,13 @@ module Feet
         # Return the hash
         @hash
       end
+
+      def self.find_all_by_submitter(name='')
+        name ||= 'Andrew'
+
+        quotes = FileModel.all
+        quotes.select { |q| q['submitter'] == name }
+      end
     end
   end
 end
