@@ -89,10 +89,15 @@ module Feet
       end
 
       def self.find_all_by_attribute(attribute, value)
-        return [] unless attribute || value
+        id = 1
+        results = []
+        loop do
+          m = FileModel.find(id)
+          return results unless m
 
-        quotes = FileModel.all
-        quotes.select { |q| q[attribute] == value }
+          results.push(m) if m[attribute] == value
+          id += 1
+        end
       end
 
       def self.find_all_by_submitter(name = '')
