@@ -35,4 +35,14 @@ def index
   p files
 end
 
-index
+# index
+
+a = Feet::Model::FileModel.find_all_by_test_bla('this bla')
+
+# p a
+
+puts 'responds'
+p Feet::Model::FileModel.respond_to? :find_all_by_name
+
+puts 'method'
+p Feet::Model::FileModel.method :find_all_by_name
