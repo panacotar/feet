@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "feet/version"
+require_relative 'feet/version'
 require 'feet/array'
 require 'feet/routing'
 require 'feet/dependencies'
