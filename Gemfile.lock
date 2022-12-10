@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    feet (0.0.5)
+    feet (0.0.6)
       erubis
       multi_json
       rack (~> 2.2)
