@@ -35,17 +35,17 @@ module Feet
 
       begin
         text = controller.send(action)
-        r = controller.response
-
-        if r
-          [r.status, r.headers, [r.body].flatten]
-        else
-          [200, { 'Content-Type' => 'text/html' }, [text]]
-        end
       rescue StandardError => e
         puts e
-        "<h2>Something went wrong</h2>
+        text = "<h2>Something went wrong</h2>
                 <pre style='color:red;'>#{e}</pre>"
+      end
+
+      resp = controller.response
+      if resp
+        [resp.status, resp.headers, [resp.body].flatten]
+      else
+        [200, { 'Content-Type' => 'text/html' }, [text]]
       end
     end
   end
