@@ -1,4 +1,5 @@
 require 'erubis'
+require 'rack/request'
 require 'feet/file_model'
 
 module Feet
@@ -11,6 +12,14 @@ module Feet
 
     def env
       @env
+    end
+
+    def request
+      @request ||= Rack::Request.new(env)
+    end
+
+    def params
+      request.params
     end
 
     def class_name
