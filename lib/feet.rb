@@ -35,10 +35,7 @@ module Feet
 
       begin
         text = controller.send(action)
-        r = controller.get_response
-
-        puts 'rrr'
-        p r
+        r = controller.response
 
         if r
           [r.status, r.headers, [r.body].flatten]
@@ -47,12 +44,9 @@ module Feet
         end
       rescue StandardError => e
         puts e
-        text = "<h2>Something went wrong</h2>
+        "<h2>Something went wrong</h2>
                 <pre style='color:red;'>#{e}</pre>"
       end
-
-
-
     end
   end
 end

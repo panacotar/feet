@@ -22,19 +22,19 @@ module Feet
       request.params
     end
 
-    def response(text, status = 200, headers = {})
+    def build_response(text, status = 200, headers = {})
       raise "Already responded!" if @response
 
       a = text
       @response = Rack::Response.new(a, status, headers)
     end
 
-    def get_response
+    def response
       @response
     end
 
     def render_response(*args)
-      response(render(*args))
+      build_response(render(*args))
     end
 
     def class_name
