@@ -34,6 +34,7 @@ rake test
 Currently, the following tests are available:
 - application_test.rb
 - utils_test.rb
+- file_model_test.rb
 
 ## Contributing
 
