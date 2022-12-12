@@ -1,6 +1,7 @@
 require 'erubis'
 require 'rack/request'
 require 'feet/file_model'
+require 'feet/view'
 
 module Feet
   class Controller
@@ -53,15 +54,7 @@ module Feet
     end
 
     def render(view_name, locals = {})
-      filename = File.join 'app', 'views', controller_name, "#{view_name}.html.erb"
-      template = File.read filename
-      eruby = Erubis::Eruby.new(template)
-      eruby.result locals.merge(
-        env: env,
-        controller_name: controller_name,
-        class_name: class_name,
-        feet_version: feet_version
-      )
+      View.new(controller_name, view_name, locals).call
     end
   end
 end
