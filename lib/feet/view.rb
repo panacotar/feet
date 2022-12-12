@@ -1,6 +1,6 @@
 require 'erubis'
 
-class View
+module Feet
   def initialize(controller_name, view_name, locals)
     @controller_name = controller_name
     @view_name = view_name
@@ -13,4 +13,6 @@ class View
     eruby = Erubis::Eruby.new(template)
     eruby.result @locals
   end
+end
+
 end
