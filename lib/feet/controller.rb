@@ -53,8 +53,16 @@ module Feet
       Feet.to_snake_case klass
     end
 
+    def instance_hash
+      instance_variables.each_with_object(Hash.new('')) do |iv, hash|
+        hash[iv] = instance_variable_get iv
+      end
+    end
+
     def render(view_name, locals = {})
-      View.new(controller_name, view_name, locals).call
+      filename = File.join 'app', 'views', controller_name, "#{view_name}.html.erb"
+      template = File.read filename
+      View.new(template, instance_hash).call
     end
   end
 end
