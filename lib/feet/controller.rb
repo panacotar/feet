@@ -59,7 +59,7 @@ module Feet
       end
     end
 
-    def render(view_name, locals = {})
+    def render(view_name)
       filename = File.join 'app', 'views', controller_name, "#{view_name}.html.erb"
       template = File.read filename
       View.new(template, instance_hash).call
