@@ -1,18 +1,30 @@
 require 'erubis'
 
 module Feet
-  def initialize(controller_name, view_name, locals)
-    @controller_name = controller_name
-    @view_name = view_name
-    @locals = locals
-  end
+  class View
+    def initialize(template, instance_hash)
+      @template = template
+      init_vars(instance_hash)
+    end
 
-  def call
-    filename = File.join 'app', 'views', @controller_name, "#{@view_name}.html.erb"
-    template = File.read filename
-    eruby = Erubis::Eruby.new(template)
-    eruby.result @locals
-  end
-end
+    def call
+      eruby = Erubis::Eruby.new(@template)
+      # Locals here are in addition to instance variables, if any
+      eval eruby.src
+    end
 
+    def init_vars(received_vars)
+      received_vars.each do |key, value|
+        puts 'key'
+        p key
+
+        instance_variable_set(key, value)
+      end
+    end
+
+    # Helper method for View
+    def h(str)
+      URI.escape str
+    end
+  end
 end
