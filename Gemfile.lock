@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    feet (0.0.6)
+    feet (0.0.7)
       erubis
       multi_json
       rack (~> 2.2)
@@ -19,6 +19,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-21
+  arm64-darwin-22
 
 DEPENDENCIES
   feet!
