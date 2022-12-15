@@ -106,20 +106,15 @@ module Feet
         find_all_by_attribute('submitter', name)
       end
 
-      def self.method_missing(m, *args)
-        base = /^find_all_by_(.*)/
-        if m.to_s.start_with? base
-          key = m.to_s.match(base)[1]
-          find_all_by_attribute(key, args[0])
-        else
-          super
-        end
+      
+      def self.method_missing(method_name, *args)
+        puts "Called #{method_name.inspect} with #{args.inspect}"
       end
-    end
 
-    # TO Fix
-    def self.respond_to_missing?(method_name, include_private = false)
-      method_name.to_s.start_with?('find_all_by') || super
+      def self.respond_to_missing?(method_name, include_private = false)
+        method_name.to_s.start_with?('find_all_by') || super
+      end
+
     end
   end
 end
