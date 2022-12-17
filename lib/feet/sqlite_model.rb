@@ -40,9 +40,10 @@ module Feet
       # Add the create method
 
       def self.count
-        DB.execute <<~SQL
-          SELECT COUNT(*) FROM #{table}
+        db_result = DB.execute <<~SQL
+          SELECT COUNT(*) FROM #{table};
         SQL
+        db_result[0][0]
       end
 
     end
