@@ -61,6 +61,14 @@ module Feet
         self.new data
       end
 
+      def self.find(id)
+        response = DB.execute <<~SQL
+          SELECT * FROM #{table} WHERE id = #{id}
+        SQL
+        keys = schema.keys
+        response[0] ? Hash[keys.zip response[0]] : nil
+      end
+
       def self.count
         db_result = DB.execute <<~SQL
           SELECT COUNT(*) FROM #{table};
