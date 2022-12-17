@@ -72,13 +72,22 @@ module Feet
         self.new data
       end
 
+      def [](name)
+        @hash[name.to_s]
+      end
+
+      def []=(key, value)
+        @hash[key] = value
+      end
+
+      # Add save! method
+
       def self.count
         db_result = DB.execute <<~SQL
           SELECT COUNT(*) FROM #{table};
         SQL
         db_result[0][0]
       end
-
     end
   end
 end
