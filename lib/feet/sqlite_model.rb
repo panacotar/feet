@@ -37,7 +37,29 @@ module Feet
         end
       end
 
-      # Add the create method
+      def self.create(initial_hash)
+        # Get initial_hash and schema keys without ids and map initial_hash to schema keys
+        initial_hash.delete 'id'
+        keys = schema.keys - ['id']
+        sql_values = keys.map do |key|
+          initial_hash[key] ? to_sql(initial_hash[key]) : 'null'
+        end
+
+        # Insert values into table
+        DB.execute <<~SQL
+          INSERT INTO #{table} (#{keys.join ','}) VALUES (#{sql_values.join ','});
+        SQL
+
+        # Build and return the new table entry
+        raw_values = keys.map { |k| initial_hash[k] }
+        data = Hash[keys.zip raw_values]
+
+        # Get the latest id
+        sql = 'SELECT last_insert_rowid();'
+        data['id'] = DB.execute(sql)[0][0]
+
+        self.new data
+      end
 
       def self.count
         db_result = DB.execute <<~SQL
