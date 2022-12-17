@@ -24,6 +24,21 @@ module Feet
         @schema
       end
 
+      def self.to_sql(value)
+        case value
+        when NilClass
+          'null'
+        when Numeric
+          value.to_s
+        when String
+          "'#{value}'"
+        else
+          raise "Can't convert #{value.class} to SQL."
+        end
+      end
+
+      # Add the create method
+
       def self.count
         DB.execute <<~SQL
           SELECT COUNT(*) FROM #{table}
