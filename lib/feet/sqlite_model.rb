@@ -6,7 +6,7 @@ DB = SQLite3::Database.new 'test.db'
 module Feet
   module Model
     class SQLiteModel
-      def self.initialize(data = nil)
+      def initialize(data = nil)
         @hash = data
       end
 
