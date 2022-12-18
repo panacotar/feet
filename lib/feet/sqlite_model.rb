@@ -80,7 +80,20 @@ module Feet
         @hash[key] = value
       end
 
-      # Add save! method
+      def save!
+        return nil unless @hash['id']
+
+        hash_map = @hash.keys.map do |key|
+          "#{key} = #{self.class.to_sql(@hash[key])}"
+        end
+
+        DB.execute <<~SQL
+          UPDATE #{self.class.table}
+          SET #{hash_map.join ','}
+          WHERE id = #{@hash['id']};
+        SQL
+        @hash
+      end
 
       def self.count
         db_result = DB.execute <<~SQL
