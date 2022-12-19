@@ -21,6 +21,17 @@ module Feet
         DB.table_info(table) do |row|
           @schema[row['name']] = row['type']
         end
+
+        # Add define_method for getters and setters
+        @schema.each do |key, type|
+          define_method(key) do
+            self[key]
+          end
+          define_method("#{key}=") do |value|
+            self[key] = value
+          end
+        end
+
         @schema
       end
 
