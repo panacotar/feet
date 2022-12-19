@@ -22,15 +22,15 @@ module Feet
           @schema[row['name']] = row['type']
         end
 
-        # Add define_method for getters and setters
-        @schema.each do |key, type|
-          define_method(key) do
-            self[key]
-          end
-          define_method("#{key}=") do |value|
-            self[key] = value
-          end
-        end
+        # # Add define_method for getters and setters
+        # @schema.each do |key, type|
+        #   define_method(key) do
+        #     self[key]
+        #   end
+        #   define_method("#{key}=") do |value|
+        #     self[key] = value
+        #   end
+        # end
 
         @schema
       end
@@ -112,6 +112,34 @@ module Feet
         SQL
         db_result[0][0]
       end
+
+      def method_missing(method, *args)
+        keys = self.class.schema.keys
+
+        m = method.to_s
+        m = m.delete('=') if method.to_s.include?('=')
+
+        if keys.include? m
+          method.to_s.include?('=') ? define_setter(method) : define_getter(method)
+        else
+          super
+        end
+      end
+
+      def define_setter(method)
+        self.class.define_method(method) do |value|
+          puts 'value there'
+          p value
+          self[method.to_s]
+        end
+      end
+
+      def define_getter(method)
+        self.class.define_method(method) do
+          self[method.to_s]
+        end
+      end
+
     end
   end
 end
