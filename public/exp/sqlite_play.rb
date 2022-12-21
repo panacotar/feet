@@ -34,6 +34,9 @@ puts "Found record with id 7, title -->: #{found7['title']}"
 #   puts "Found title: #{result['title']}"
 # end
 
-found7['title'] = 'Whatevr again!'
-p found7.save!
+# found7['title'] = 'Whatevr again!'
+# p found7.save!
 
+# all = MyTable.all
+# puts 'all'
+# p all
