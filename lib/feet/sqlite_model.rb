@@ -104,31 +104,41 @@ module Feet
       end
 
       def method_missing(method, *args)
-        keys = self.class.schema.keys
-
-        m = method.to_s
-        m = m.delete('=') if method.to_s.include?('=')
-
-        if keys.include? m
-          method.to_s.include?('=') ? define_setter(method) : define_getter(method)
-        else
-          super
+        # Check for getter
+        if @hash[method.to_s]
+          self.class.define_method(method) do
+            self[method]
+          end
+          return send(method)
         end
+
+        # Check for setters
+        if method.to_s[-1..-1] == '='
+          field = method.to_s[0..-2]
+          self.class.class_eval do
+            define_method(method) do |value|
+              self[field] = value
+            end
+          end
+          return self.send(method, args[0])
+        end
+
+        super
       end
 
-      def define_setter(method)
-        self.class.define_method(method) do |value|
-          puts 'value there'
-          p value
-          self[method.to_s]
-        end
-      end
+      # def define_setter(method)
+      #   self.class.define_method(method) do |value|
+      #     puts 'value there'
+      #     p value
+      #     self[method.to_s]
+      #   end
+      # end
 
-      def define_getter(method)
-        self.class.define_method(method) do
-          self[method.to_s]
-        end
-      end
+      # def define_getter(method)
+      #   self.class.define_method(method) do
+      #     self[method.to_s]
+      #   end
+      # end
 
     end
   end
