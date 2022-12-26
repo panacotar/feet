@@ -96,6 +96,18 @@ module Feet
         @hash
       end
 
+      def self.all
+        keys = schema.keys
+        rows = DB.execute <<~SQL
+          SELECT * FROM #{table}
+        SQL
+
+        rows.map do |row|
+          data = Hash[keys.zip row]
+          self.new data
+        end
+      end
+
       def self.count
         db_result = DB.execute <<~SQL
           SELECT COUNT(*) FROM #{table};
