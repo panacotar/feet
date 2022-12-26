@@ -96,18 +96,6 @@ module Feet
         @hash
       end
 
-      def convert(field, type)
-        val = @hash[field]
-        case type
-        when 'string'
-          val.to_s
-        when 'boolean'
-          val.zero? ? false : true
-        else
-          raise NotImplementedError
-        end
-      end
-
       def self.all
         keys = schema.keys
         rows = DB.execute <<~SQL
