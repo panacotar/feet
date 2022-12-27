@@ -137,21 +137,6 @@ module Feet
 
         super
       end
-
-      # def define_setter(method)
-      #   self.class.define_method(method) do |value|
-      #     puts 'value there'
-      #     p value
-      #     self[method.to_s]
-      #   end
-      # end
-
-      # def define_getter(method)
-      #   self.class.define_method(method) do
-      #     self[method.to_s]
-      #   end
-      # end
-
     end
   end
 end
