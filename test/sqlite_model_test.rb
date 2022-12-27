@@ -12,7 +12,6 @@ class FeetTestSQLiteModel < Minitest::Test
   end
 
   def test_create
-    # item = { posted: 1, title: 'my title', body: 'Once upon a time...', id: 7 }
     item = { 'posted' => 1, 'title' => 'my test title', 'body' => 'Once upon a time...', 'id' => 7 }
     row = MyTestTable.create item
 
