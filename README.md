@@ -25,6 +25,8 @@ After checking out the repo, run `bin/setup` to install dependencies. You can al
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
 ## Testing
+The [Minitest](http://docs.seattlerb.org/minitest/) library was used for testing.
+
 `Rake::TestTask` was configure to run the test suite. You can see a list of Rake commands with `rake -T`.
 Run all tests with:
 
@@ -35,6 +37,7 @@ Currently, the following tests are available:
 - application_test.rb
 - utils_test.rb
 - file_model_test.rb
+- sqlite_model_test.rb
 
 ## Contributing
 

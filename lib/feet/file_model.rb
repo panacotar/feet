@@ -115,11 +115,11 @@ module Feet
           super
         end
       end
-    end
 
-    # TO Fix
-    def self.respond_to_missing?(method_name, include_private = false)
-      method_name.to_s.start_with?('find_all_by') || super
+      def self.respond_to_missing?(method_name, include_private = false)
+        method_name.to_s.start_with?('find_all_by') || super
+      end
+
     end
   end
 end

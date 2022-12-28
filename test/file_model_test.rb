@@ -1,8 +1,6 @@
 require_relative 'test_helper'
 
-class FeetTestUtils < Minitest::Test
-  include Rack::Test::Methods
-
+class FeetTestFileModel < Minitest::Test
   def entry
     path = 'misc/1.json'
 
