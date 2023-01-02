@@ -51,30 +51,29 @@ module Feet
                     options: options
                   })
     end
-
     def check_url(url)
       @rules.each do |rule|
         # Check if rule against regexp
-        match_data = rule[:regexp].match(url)
+        matched_data = rule[:regexp].match(url)
 
-        # Build params hash
-        if match_data
+        if matched_data
+          # Build params hash
           options = rule[:options]
           params = options[:default].dup
           # Match variable names with the regexp captured parts
           rule[:vars].each_with_index do |var, i|
-            params[var] = m.captures[i]
+            params[var] = matched_data.captures[i]
           end
-        end
 
-        if rule[:dest]
-          # There's a destination like 'controller#action'
-          return get_dest(rule[:dest], params)
-        else
-          # Use controller#action to get the Rack application
-          controller = params['controller']
-          action = params['action']
-          return get_dest("#{controller}##{action}", params)
+          if rule[:dest]
+            # There's a destination like 'controller#action'
+            return get_dest(rule[:dest], params)
+          else
+            # Use controller#action to get the Rack application
+            controller = params['controller']
+            action = params['action']
+            return get_dest("#{controller}##{action}", params)
+          end
         end
       end
       nil
