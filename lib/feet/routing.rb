@@ -51,6 +51,7 @@ module Feet
                     options: options
                   })
     end
+
     def check_url(url)
       @rules.each do |rule|
         # Check if rule against regexp
@@ -66,7 +67,7 @@ module Feet
           end
 
           if rule[:dest]
-            # There's a destination like 'controller#action'
+            # There's either a destination like 'controller#action' or a Proc
             return get_dest(rule[:dest], params)
           else
             # Use controller#action to get the Rack application
@@ -83,6 +84,7 @@ module Feet
     def get_dest(dest, routing_params = {})
       return dest if dest.respond_to?(:call)
 
+      # Ex 'controller#action'
       if dest =~ /^([^#]+)#([^#]+)$/
         name = $1.capitalize
         controller = Object.const_get("#{name}Controller")
@@ -94,17 +96,15 @@ module Feet
   end
 
   class Application
-    def get_controller_and_action(env)
-      _, cont, action, _after = env["PATH_INFO"].split('/', 4)
-      action ||= 'index'
-      cont = cont == '' ? 'Home' : cont.capitalize
-      cont += "Controller"
-
-      [Object.const_get(cont), action]
+    def route(&block)
+      @route_obj ||= RouteObject.new
+      @route_obj.instance_eval(&block)
     end
 
-    def post?(env)
-      env['REQUEST_METHOD'] == 'POST'
+    def get_rack_app(env)
+      raise 'No routes!' unless @route_obj
+
+      @route_obj.check_url env['PATH_INFO']
     end
   end
 end
