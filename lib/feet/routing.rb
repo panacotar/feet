@@ -40,7 +40,10 @@ module Feet
         end
       end
 
+      # Join the main regexp
       regexp = regexp_parts.join('/')
+
+      # Store match object
       @rules.push({
                     regexp: Regexp.new("^/#{regexp}$"),
                     vars: vars,
@@ -49,6 +52,33 @@ module Feet
                   })
     end
 
+    def check_url(url)
+      @rules.each do |rule|
+        # Check if rule against regexp
+        match_data = rule[:regexp].match(url)
+
+        # Build params hash
+        if match_data
+          options = rule[:options]
+          params = options[:default].dup
+          # Match variable names with the regexp captured parts
+          rule[:vars].each_with_index do |var, i|
+            params[var] = m.captures[i]
+          end
+        end
+
+        if rule[:dest]
+          # There's a destination like 'controller#action'
+          return get_dest(rule[:dest], params)
+        else
+          # Use controller#action to get the Rack application
+          controller = params['controller']
+          action = params['action']
+          return get_dest("#{controller}##{action}", params)
+        end
+      end
+      nil
+    end
 
   end
 
