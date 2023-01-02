@@ -80,6 +80,18 @@ module Feet
       nil
     end
 
+    # Returns a Rack application or raises an error if no/invalid 'dest'
+    def get_dest(dest, routing_params = {})
+      return dest if dest.respond_to?(:call)
+
+      if dest =~ /^([^#]+)#([^#]+)$/
+        name = $1.capitalize
+        controller = Object.const_get("#{name}Controller")
+        return controller.action($2, routing_params)
+      end
+
+      raise "No destination: #{dest.inspect}!"
+    end
   end
 
   class Application
