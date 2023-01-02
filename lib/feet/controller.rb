@@ -9,6 +9,7 @@ module Feet
 
     def initialize(env)
       @env = env
+      @routing_params = {}
     end
 
     def env
@@ -20,7 +21,7 @@ module Feet
     end
 
     def params
-      request.params
+      request.params.merge @routing_params
     end
 
     def build_response(text, status = 200, headers = {})
@@ -63,6 +64,22 @@ module Feet
       filename = File.join 'app', 'views', controller_name, "#{view_name}.html.erb"
       template = File.read filename
       View.new(template, instance_hash).call
+    end
+
+    def self.action(act, route_params = {})
+      proc { |e| self.new(e).dispatch(act, route_params) }
+    end
+
+    def dispatch(action, routing_params = {})
+      @routing_params = routing_params
+
+      text = send(action)
+      if response
+        [response.status, response.headers, [response.body].flatten]
+      else
+        [200, { 'Content-Type' => 'text/html' }, [text]]
+      end
+
     end
   end
 end
