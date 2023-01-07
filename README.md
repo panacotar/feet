@@ -33,11 +33,17 @@ Run all tests with:
 ```
 rake test
 ```
-Currently, the following tests are available:
+To run only one test, use:
+```
+rake test TEST=test/filename.rb
+```
+
+Currently, the following test files are available:
 - application_test.rb
 - utils_test.rb
 - file_model_test.rb
 - sqlite_model_test.rb
+- route_test.rb
 
 ## Contributing
 
