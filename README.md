@@ -6,6 +6,13 @@ TODO: Delete this and the text above, and describe your gem
 
 ## Installation
 
+In your Rack application, add `feet` in your Gemfile
+````
+get 'feet'
+```
+And then run `bundle install`
+
+
 Install the gem and add to the application's Gemfile by executing:
 
     $ bundle add feet
@@ -16,7 +23,15 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 ## Usage
 
-TODO: Write usage instructions here
+This projects mocks different Rails features. After installing it in your personal project, you can check some example for each feature
+TODO: Write small code snippets for every one of them
+
+- Controllers
+- Views
+- FileModel (for building file-base models)
+- SQLiteModel ORM
+- BenchMarking (Rack middleware)
+- Routing
 
 ## Development
 
