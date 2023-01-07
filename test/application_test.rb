@@ -2,13 +2,13 @@ require_relative 'test_helper'
 
 class TestController < Feet::Controller
   def index
-    "Hello!" # This is not rendering a view
+    'Hello!' # This is not rendering a view
   end
 end
 
 class TestApp < Feet::Application
-  def get_controller_and_action(env)
-    [TestController, "index"]
+  def controller_and_action
+    [TestController, 'index']
   end
 end
 
@@ -20,11 +20,11 @@ class FeetTestApp < Minitest::Test
   end
 
   def test_request
-    get '/'
+    get '/feet'
 
     assert last_response.ok?
     body = last_response.body
-    assert body['Hello']
+    assert body['Ruby on Feet']
   end
 
   def test_all_strings
