@@ -4,6 +4,10 @@ module Feet
       @rules = []
     end
 
+    def root(*args)
+      match('/', *args)
+    end
+
     # Example arguments
     # url  ":controller/:id"
     # args [{:default=>{"action"=>"show"}}]
