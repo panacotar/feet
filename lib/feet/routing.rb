@@ -2,6 +2,15 @@ module Feet
   class RouteObject
     def initialize
       @rules = []
+      @default_rules = [
+        {
+          regexp: /^\/([a-zA-Z0-9]+)$/,
+          vars: ["controller"],
+          dest: nil,
+          via: false,
+          options: {:default=>{"action"=>"index"}}
+        }
+      ]
     end
 
     def root(*args)
@@ -23,10 +32,10 @@ module Feet
       dest = args.pop if args.size > 0
       raise 'Too many arguments!' if args.size > 0
 
-      # Parse URL parts
-      parts = url.split('/')
-      # parts.select! { |p| !p.empty? }
-      parts.reject! { |p| p.empty? }
+      # Parse URL parts. Split on appropriate punctuation
+      # (slash, parens, question mark, dot)
+      parts = url.split /(\/|\(|\)|\?|\.)/
+      parts.select! { |p| !p.empty? }
 
       vars = []
       regexp_parts = parts.map do |part|
@@ -34,30 +43,35 @@ module Feet
         when ':'
           # Map Variable
           vars << part[1..-1]
-          '([a-zA-Z0-9]+)'
+          '([a-zA-Z0-9]+)?'
         when '*'
           # Map Wildcard
           vars << part[1..-1]
           '(.*)'
+        when '.'
+          "\\." # Literal dot
         else
           part
         end
       end
 
       # Join the main regexp
-      regexp = regexp_parts.join('/')
+      regexp = regexp_parts.join('')
 
       # Store match object
       @rules.push({
                     regexp: Regexp.new("^/#{regexp}$"),
                     vars: vars,
                     dest: dest,
+                    via: options[:via] ? options[:via].downcase : false,
                     options: options
                   })
     end
 
-    def check_url(url)
-      @rules.each do |rule|
+    def check_url(url, method)
+      (@rules + @default_rules).each do |rule|
+        next if rule[:via] && rule[:via] != method.downcase
+
         # Check if rule against regexp
         matched_data = rule[:regexp].match(url)
 
@@ -65,6 +79,7 @@ module Feet
           # Build params hash
           options = rule[:options]
           params = options[:default].dup
+
           # Match variable names with the regexp captured parts
           rule[:vars].each_with_index do |var, i|
             params[var] = matched_data.captures[i]
@@ -74,6 +89,7 @@ module Feet
             # There's either a destination like 'controller#action' or a Proc
             return get_dest(rule[:dest], params)
           else
+            # The params are specified in the options[:default]
             # Use controller#action to get the Rack application
             controller = params['controller']
             action = params['action']
@@ -103,12 +119,13 @@ module Feet
     def route(&block)
       @route_obj ||= RouteObject.new
       @route_obj.instance_eval(&block)
+      p @route_obj
     end
 
     def get_rack_app(env)
       raise 'No routes!' unless @route_obj
 
-      @route_obj.check_url env['PATH_INFO']
+      @route_obj.check_url env['PATH_INFO'], env['REQUEST_METHOD']
     end
   end
 end
