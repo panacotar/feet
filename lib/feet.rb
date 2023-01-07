@@ -15,7 +15,7 @@ module Feet
       return [404, { 'Content-Type' => 'text/html' }, []] if env['PATH_INFO'] == '/favicon.ico'
 
       # Assign a default Feet HTML welcome page (in public/index.html)
-      if env['PATH_INFO'] == '/default'
+      if env['PATH_INFO'] == '/feet'
         path = File.expand_path('../public/index.html', __dir__)
         return [200, { 'Content-Type' => 'text/html' }, File.open(path)]
       end
