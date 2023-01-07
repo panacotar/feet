@@ -25,9 +25,9 @@ module Feet
     end
 
     def build_response(text, status = 200, headers = {})
-      raise "Already responded!" if @response
+      raise 'Already responded!' if @response
 
-      a = text
+      a = [text].flatten
       @response = Rack::Response.new(a, status, headers)
     end
 
@@ -77,7 +77,7 @@ module Feet
       if response
         [response.status, response.headers, [response.body].flatten]
       else
-        [200, { 'Content-Type' => 'text/html' }, [text]]
+        [200, { 'Content-Type' => 'text/html' }, [text].flatten]
       end
 
     end
