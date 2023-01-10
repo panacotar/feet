@@ -14,7 +14,9 @@ module Feet
     end
 
     def root(*args)
-      match('/', *args)
+      match('', *args)
+    end
+
     end
 
     # Example arguments
