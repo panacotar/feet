@@ -44,7 +44,7 @@ class FeetTestRouting < Minitest::Test
   def test_match_plain
     plain_rule = routes_obj.match(*MATCH_ARGS[:plain_match]).first
 
-    assert_equal %i[regexp vars dest options], plain_rule.keys, 'It should contain the necessary keys for rule'
+    assert_equal %i[regexp vars dest via options], plain_rule.keys, 'It should contain the necessary keys for rule'
     assert_empty plain_rule[:vars], 'It should have any vars'
     # Regexp /^\/$/
     assert_equal %r{^/$}, plain_rule[:regexp], 'It should return the right regexp'
