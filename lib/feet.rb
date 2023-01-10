@@ -20,9 +20,6 @@ module Feet
         return [200, { 'Content-Type' => 'text/html' }, File.open(path)]
       end
 
-      # Perform a redirect
-      return [301, { 'Location' => '/quotes/a_quote' }, []] if env['PATH_INFO'] == '/redirect'
-
       rack_app = get_rack_app(env)
       rack_app.call(env)
     end
