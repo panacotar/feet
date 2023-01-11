@@ -46,8 +46,8 @@ class FeetTestRouting < Minitest::Test
 
     assert_equal %i[regexp vars dest via options], plain_rule.keys, 'It should contain the necessary keys for rule'
     assert_empty plain_rule[:vars], 'It should have any vars'
-    # Regexp /^\/$/
-    assert_equal %r{^/$}, plain_rule[:regexp], 'It should return the right regexp'
+    # Regexp /^\/\/$/
+    assert_equal %r{^//$}, plain_rule[:regexp], 'It should return the right regexp'
     assert_equal 'quotes#index', plain_rule[:dest], 'It should return the right destination'
 
     # Test path with arguments ex: /:id
@@ -55,7 +55,7 @@ class FeetTestRouting < Minitest::Test
 
     refute_empty plain_args_rule[:vars], 'Vars should not be empty'
     assert_equal ['id'], plain_args_rule[:vars], 'Vars should contain the id'
-    # Regexp /^\/([a-zA-Z0-9]+)?$/
-    assert_equal %r{^/([a-zA-Z0-9]+)?$}, plain_args_rule[:regexp]
+    # Regexp /^\/\/([a-zA-Z0-9]+)?$/
+    assert_equal %r{^//([a-zA-Z0-9]+)?$}, plain_args_rule[:regexp]
   end
 end
