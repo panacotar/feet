@@ -5,21 +5,13 @@ This gem was developed part of a group study of the [Rebuilding Rails](https://r
 
 ## Installation
 
-In your Rack application, add `feet` in your Gemfile
+In your Rack application, add `feet` in your Gemfile:
 
-  $ get 'feet'
+  $ gem 'feet'
 
 And then run `bundle install`
-
-Install the gem and add to the application's Gemfile by executing:
-
-  $ bundle add feet
-
-If bundler is not being used to manage dependencies, install the gem by executing:
-
-  $ gem install feet
-    
-Use Feet in your app. An example app
+ 
+Use Feet in your app. An example app:
 
 ```ruby
 # config/application.rb
@@ -32,20 +24,69 @@ module MyApp
 end
 ```
 
-Initialize the application in your rack config.ru.
+Initialize the application in your rack config.ru. 
+
+```ruby
+# config.ru
+require './config/application'
+[...]
+app = MyApp::Application.new
+
+run app
+```
+
+After, start the rackup and navigate to the `/feet` path to see Feet welcome page and more info.
+You can also check this Usage section for adding controllers and further configuring routes.
+
 
 ## Usage
 
-This projects mocks different Rails features. After installing it in your personal project, you can check some example for each feature (click to open the dropdown)
+This projects mocks different Rails features. After installing it in your personal project, you can check some example for each feature (click to open the dropdown).
+
+<details>
+  <summary>Routing</summary>
+
+  Map different routes to their controller action.
+  Similar to Rails.
+
+  ```ruby
+  # config.ru
+  [...]
+  app.route do
+      root 'home#index'
+
+      match 'posts', 'posts#index'
+      match 'posts/sql_index', 'posts#sql_index'
+      match 'posts/:id', 'posts#new_quote', via: 'POST' # Use different HTTP verb with the `via` option
+      match 'posts/:id', 'posts#show'
+
+      # Get all the default resources with the `resource` method
+      resource 'article'
+  
+      # Or just assign default routes
+      match ":controller/:id/:action.(:type)?"
+      match ':controller/:id/:action'
+      match ':controller/:id',
+              default: { 'action' => 'show' }
+
+  end
+  [...]
+  ```
+</details>
 
 <details>
   <summary>Controllers</summary>
   
   ```ruby
-  # app/controllers/post_controller.rb
-  class PostController < Feet::Controller
-    def show; end
-    def index; end
+  # app/controllers/posts_controller.rb
+  class PostsController < Feet::Controller
+    def show
+      render :show
+    end
+
+    def index
+      render :index
+    end
     [...]
   end
   ```
@@ -93,6 +134,24 @@ This projects mocks different Rails features. After installing it in your person
 <details>
     <summary>SQLiteModel ORM</summary>
 
+  First, create and run a mini migration to initiate the DB (test.db) and create the table (my_table). Modify the DB and table name.
+  ```ruby
+    # mini_migration.rb
+    require 'sqlite3'
+
+    conn = SQLite3::Database.new 'test.db'
+    conn.execute <<~SQL
+      create table my_table (
+        id INTEGER PRIMARY KEY,
+        posted INTEGER,
+        title VARCHAR(30),
+        body VARCHAR(32000)
+      );
+    SQL
+  ```
+
+  $ ruby mini_migration.rb
+
   ```ruby
   # app/my_table.rb
   require 'sqlite3'
@@ -119,42 +178,15 @@ This projects mocks different Rails features. After installing it in your person
 
           render :sql_index
       end
+
+      def create
+        @post = MyTable.create({"title" => "Ruby on Feet", "posted" => 1, "body" => "..."})
+      end
   end
   ```
+  And create a view `sql_index` to render these results.
+
 </details>
-
-
-<details>
-  <summary>Routing</summary>
-
-  Map different routes to their controller action.
-  Similar to Rails.
-
-  ```ruby
-  # config.ru
-  [...]
-  app.route do
-      root 'home#index'
-
-      match 'posts/', 'posts#index'
-      match 'posts/sql_index', 'posts#sql_index'
-      match 'posts/:id', 'posts#new_quote', via: 'POST' # Use different HTTP verb with the `via` option
-      match 'posts/:id', 'posts#show'
-
-      # Get all the default resources with the `resource` method
-      resource 'article'
-  
-      # Or just assign default routes
-      match ":controller/:id/:action.(:type)?"
-      match ':controller/:id/:action'
-      match ':controller/:id',
-              default: { 'action' => 'show' }
-
-  end
-  [...]
-  ```
-</details>
-
 
 ## Development
 
@@ -190,3 +222,10 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/darius
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+
+
+<!-- TODO: -->
+<!-- Fix FileModel so to work with multiple models, not just quotes -->
+<!-- Remove @route comment from RouteObject -->
+<!-- Deploy the gem to rubygems org https://guides.rubygems.org/publishing/ -->
+<!-- CHECK README FOR ANY ERROR instructions -->
