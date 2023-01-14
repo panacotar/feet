@@ -7,7 +7,9 @@ This gem was developed part of a group study of the [Rebuilding Rails](https://r
 
 In your Rack application, add `feet` in your Gemfile:
 
-  $ gem 'feet'
+```
+gem 'feet'
+```
 
 And then run `bundle install`
  
@@ -201,11 +203,11 @@ The [Minitest](http://docs.seattlerb.org/minitest/) library was used for testing
 
 Run all tests with:
 
-  $ rake test
+    $ rake test
 
 To run only one test, use:
 
-  $ rake test TEST=test/filename.rb
+    $ rake test TEST=test/filename.rb
 
 
 Currently, the following test files are available:
