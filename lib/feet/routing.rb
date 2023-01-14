@@ -17,6 +17,15 @@ module Feet
       match('', *args)
     end
 
+    def resource(name)
+      match "/#{name}", default: { 'action' => 'index' }, via: 'GET'
+      match "/#{name}/new", default: { 'action' => 'new' }, via: 'GET'
+      match "/#{name}", default: { 'action' => 'create' }, via: 'POST'
+      match "/#{name}/:id", default: { 'action' => 'show' }, via: 'GET'
+      match "/#{name}/:id/edit", default: { 'action' => 'edit' }, via: 'GET'
+      match "/#{name}/:id", default: { 'action' => 'update' }, via: 'PUT'
+      match "/#{name}/:id", default: { 'action' => 'update' }, via: 'PATCH'
+      match "/#{name}/:id", default: { 'action' => 'destroy' }, via: 'DELETE'
     end
 
     # Example arguments
