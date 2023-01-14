@@ -1,9 +1,11 @@
 # Ruby on Feet
 This gem was developed part of a group study of the [Rebuilding Rails](https://rebuilding-rails.com/) book by [Noah Gibbs](https://github.com/noahgibbs).
 
-**Ruby on Feet** is a baby Rails-like MVC framework and replicates some of the main features of Rails (see the Usage section).
+**Ruby on Feet** is a baby Rails-like MVC framework and replicates some of the main features of Rails (see Usage).
 
-![cover img, ruby butt statue](public/cover.png)
+<p align="center">
+  <img src="public/cover.png" width="250" height="446" />
+</p>
 
 ## Installation
 
