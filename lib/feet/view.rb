@@ -15,9 +15,7 @@ module Feet
 
     def init_vars(received_vars)
       received_vars.each do |key, value|
-        puts 'key'
-        p key
-
+        # key example = '@quote'
         instance_variable_set(key, value)
       end
     end

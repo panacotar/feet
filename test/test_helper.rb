@@ -4,5 +4,6 @@ require 'feet'
 require 'rack/test'
 require 'feet/utils'
 require 'feet/sqlite_model'
+require 'feet/routing'
 
 require 'minitest/autorun'
