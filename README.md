@@ -35,7 +35,7 @@ Initialize the application in your rack config.ru.
 ```ruby
 # config.ru
 require './config/application'
-[...]
+
 app = MyApp::Application.new
 
 run app
@@ -47,7 +47,7 @@ You can also check this Usage section for adding controllers and further configu
 
 ## Usage
 
-This projects mocks different Rails features. After installing it in your personal project, you can check some example for each feature (click to open the dropdown).
+This projects mocks different Rails features. After installing it in your personal project, you can check some example for each feature.
 
 <details>
   <summary>Routing</summary>
@@ -57,13 +57,11 @@ This projects mocks different Rails features. After installing it in your person
 
   ```ruby
   # config.ru
-  [...]
   app.route do
       root 'home#index'
 
       match 'posts', 'posts#index'
-      match 'posts/sql_index', 'posts#sql_index'
-      match 'posts/:id', 'posts#new_quote', via: 'POST' # Use different HTTP verb with the `via` option
+      match 'posts/:id', 'posts#new_post', via: 'POST' # Use different HTTP verb with the `via` option
       match 'posts/:id', 'posts#show'
 
       # Get all the default resources with the `resource` method
@@ -76,7 +74,6 @@ This projects mocks different Rails features. After installing it in your person
               default: { 'action' => 'show' }
 
   end
-  [...]
   ```
 </details>
 
@@ -93,7 +90,6 @@ This projects mocks different Rails features. After installing it in your person
     def index
       render :index
     end
-    [...]
   end
   ```
 </details>
@@ -105,7 +101,6 @@ This projects mocks different Rails features. After installing it in your person
   # app/views/posts/show.html.erb
   <h1><%= @post['title'] %></h1>
   <p> <%= @post['body'] %></p>
-  [...]
   ```
 </details>
 
@@ -128,12 +123,10 @@ This projects mocks different Rails features. After installing it in your person
 
   ```ruby
   # app/controllers/post_controller.rb
-  [...]
   def index
-      @quotes = FileModel.all
+      @posts = FileModel.all
       render :index
   end
-  [...]
   ```
 </details>
 
@@ -155,22 +148,22 @@ This projects mocks different Rails features. After installing it in your person
       );
     SQL
   ```
+  Run the migration
 
-  $ ruby mini_migration.rb
+    $ ruby mini_migration.rb
 
   ```ruby
   # app/my_table.rb
-  require 'sqlite3'
   require 'feet/sqlite_model'
 
   class MyTable < Feet::Model::SQLiteModel; end
 
-  # You can test different operations on MyTable
-  # Create row
-  mt = MyTable.create "title" => "Ruby on Feet",
-    "posted" => 1, "body" => "..."
-  puts "Count: #{MyTable.count}"
-  mt2 = MyTable.find mt["id"]
+  # You can add a seed method on MyTable
+  MyTable.class_eval do
+    def self.seed
+      MyTable.create "title" => "Ruby on Feet", "posted" => 1,"body" => "..."
+    end
+  end
   ```
 
   Then you can use MyTable in your controller to handle your DB entries
@@ -178,19 +171,21 @@ This projects mocks different Rails features. After installing it in your person
   ```ruby
   # app/controller/post_controller.rb
   require_relative '../my_table'
-  class QuotesController < Feet::Controller
-      def sql_index
-          @results = MyTable.all
-
-          render :sql_index
+  class PostsController < Feet::Controller
+      def show
+        @post = MyTable.find(params['id'])
+        render :show
       end
-
+      def index
+          @posts = MyTable.all
+          render :index
+      end
       def create
-        @post = MyTable.create({"title" => "Ruby on Feet", "posted" => 1, "body" => "..."})
+        @post = MyTable.seed
+        render :show
       end
   end
   ```
-  And create a view `sql_index` to render these results.
 
 </details>
 
@@ -199,6 +194,8 @@ This projects mocks different Rails features. After installing it in your person
 After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+
+Running `gem build feet.gemspec` will create a build file feet-VERSION.gem
 
 ## Testing
 The [Minitest](http://docs.seattlerb.org/minitest/) library was used for testing.
@@ -235,3 +232,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 <!-- Remove @route comment from RouteObject -->
 <!-- Deploy the gem to rubygems org https://guides.rubygems.org/publishing/ -->
 <!-- CHECK README FOR ANY ERROR instructions -->
+<!-- Add content to the Welcome page -->
