@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    feet (0.0.9)
+    feet (0.1.1)
       erubis
       multi_json
       rack (~> 2.2)
@@ -10,19 +10,23 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
+    byebug (11.1.3)
     coderay (1.1.3)
     erubis (2.7.0)
     method_source (1.0.0)
-    minitest (5.16.3)
+    minitest (5.17.0)
     multi_json (1.15.0)
     pry (0.14.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
-    rack (2.2.4)
+    pry-byebug (3.10.1)
+      byebug (~> 11.0)
+      pry (>= 0.13, < 0.15)
+    rack (2.2.5)
     rack-test (2.0.2)
       rack (>= 1.3)
     rake (13.0.6)
-    sqlite3 (1.5.4-arm64-darwin)
+    sqlite3 (1.6.0-arm64-darwin)
 
 PLATFORMS
   arm64-darwin-21
@@ -31,7 +35,7 @@ PLATFORMS
 DEPENDENCIES
   feet!
   minitest
-  pry
+  pry-byebug
   rack-test
   rake (~> 13.0)
 
