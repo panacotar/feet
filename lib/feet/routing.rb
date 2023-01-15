@@ -5,10 +5,10 @@ module Feet
       @default_rules = [
         {
           regexp: /^\/([a-zA-Z0-9]+)$/,
-          vars: ["controller"],
+          vars: ['controller'],
           dest: nil,
           via: false,
-          options: {:default=>{"action"=>"index"}}
+          options: { default: { 'action' => 'index' } }
         }
       ]
     end
@@ -46,7 +46,7 @@ module Feet
       # Parse URL parts. Split on appropriate punctuation
       # (slash, parens, question mark, dot)
       parts = url.split /(\/|\(|\)|\?|\.)/
-      parts.select! { |p| !p.empty? }
+      parts.reject! { |p| p.empty? }
 
       vars = []
       regexp_parts = parts.map do |part|
@@ -60,7 +60,7 @@ module Feet
           vars << part[1..-1]
           '(.*)'
         when '.'
-          "\\." # Literal dot
+          '\\.' # Literal dot
         else
           part
         end
@@ -130,7 +130,6 @@ module Feet
     def route(&block)
       @route_obj ||= RouteObject.new
       @route_obj.instance_eval(&block)
-      p @route_obj
     end
 
     def get_rack_app(env)
