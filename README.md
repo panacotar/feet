@@ -49,6 +49,8 @@ You can also check this Usage section for adding controllers and further configu
 
 This projects mocks different Rails features. After installing it in your personal project, you can check some example for each feature.
 
+Or check the generated documentation: https://www.rubydoc.info/gems/feet/
+
 <details>
   <summary>Routing</summary>
 
