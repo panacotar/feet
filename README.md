@@ -77,6 +77,8 @@ Or check the generated documentation: https://www.rubydoc.info/gems/feet/
 
   end
   ```
+  Other methods of Feet's `RouteObject`: https://www.rubydoc.info/gems/feet/Feet/RouteObject
+
 </details>
 
 <details>
@@ -188,6 +190,7 @@ Or check the generated documentation: https://www.rubydoc.info/gems/feet/
       end
   end
   ```
+  Check other methods of `SQLiteModel`: https://www.rubydoc.info/gems/feet/Feet/Model/SQLiteModel.
 
 </details>
 
