@@ -1,10 +1,10 @@
 # Ruby on Feet
-This gem was developed part of a group study of the [Rebuilding Rails](https://rebuilding-rails.com/) book by [Noah Gibbs](https://github.com/noahgibbs).
+Gem developed part of a study group on [Rebuilding Rails](https://rebuilding-rails.com/) by [Noah Gibbs](https://github.com/noahgibbs).
 
 **Ruby on Feet** is a baby Rails-like MVC framework and replicates some of the main features of Rails (see Usage).
 
 <p align="center">
-  <img src="public/cover.png" width="250" height="446" />
+  <img src="public/cover.png" height="400" />
 </p>
 
 ## Installation
@@ -17,7 +17,7 @@ gem 'feet'
 
 And then run `bundle install`
  
-Use Feet in your app. An example app:
+Use `Feet` in your app. An example app:
 
 ```ruby
 # config/application.rb
@@ -41,15 +41,13 @@ app = MyApp::Application.new
 run app
 ```
 
-After, start the rackup and navigate to the `/feet` path to see Feet welcome page and more info.
-You can also check this Usage section for adding controllers and further configuring routes.
-
+After, start the rackup and see Feet's welcome page by navigating to `/feet`.
 
 ## Usage
 
-This projects mocks different Rails features. After installing it in your personal project, you can check some example for each feature.
+This project mocks different Rails features.
 
-Or check the generated documentation: https://www.rubydoc.info/gems/feet/
+Check the [generated documentation](https://www.rubydoc.info/gems/feet/) or here are some short examples of features you can use:
 
 <details>
   <summary>Routing</summary>
@@ -77,7 +75,7 @@ Or check the generated documentation: https://www.rubydoc.info/gems/feet/
 
   end
   ```
-  Other methods of Feet's `RouteObject`: https://www.rubydoc.info/gems/feet/Feet/RouteObject
+  More `RouteObject` methods: https://www.rubydoc.info/gems/feet/Feet/RouteObject
 
 </details>
 
@@ -137,7 +135,7 @@ Or check the generated documentation: https://www.rubydoc.info/gems/feet/
 <details>
     <summary>SQLiteModel ORM</summary>
 
-  First, create and run a mini migration to initiate the DB (test.db) and create the table (my_table). Modify the DB and table name.
+  First, create and run a mini migration to initiate the DB (`test.db`) and create the table (`my_table`). Modify the DB and table name.
   ```ruby
     # mini_migration.rb
     require 'sqlite3'
@@ -170,7 +168,7 @@ Or check the generated documentation: https://www.rubydoc.info/gems/feet/
   end
   ```
 
-  Then you can use MyTable in your controller to handle your DB entries
+  Then you can use `MyTable` in your controller to handle your DB operations
 
   ```ruby
   # app/controller/post_controller.rb
@@ -190,7 +188,7 @@ Or check the generated documentation: https://www.rubydoc.info/gems/feet/
       end
   end
   ```
-  Check other methods of `SQLiteModel`: https://www.rubydoc.info/gems/feet/Feet/Model/SQLiteModel.
+  Check `SQLiteModel` methods: https://www.rubydoc.info/gems/feet/Feet/Model/SQLiteModel.
 
 </details>
 
