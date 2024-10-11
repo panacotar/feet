@@ -17,8 +17,8 @@ Gem::Specification.new do |spec|
   spec.metadata['allowed_push_host'] = 'https://rubygems.org/'
 
   spec.metadata['homepage_uri'] = spec.homepage
-  spec.metadata['source_code_uri'] = 'https://github.com/DariusPirvulescu/feet'
-  spec.metadata['changelog_uri'] = 'https://github.com/DariusPirvulescu/feet/pulls?q=is%3Apr+is%3Aclosed'
+  spec.metadata['source_code_uri'] = 'https://github.com/panacotar/feet'
+  spec.metadata['changelog_uri'] = 'https://github.com/panacotar/feet/pulls?q=is%3Apr+is%3Aclosed'
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
@@ -34,7 +34,7 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency 'erubis'
   spec.add_runtime_dependency 'multi_json'
-  spec.add_runtime_dependency 'rack', '~>2.2'
+  epec.add_runtime_dependency 'rack', '~>2.2'
   spec.add_runtime_dependency 'sqlite3'
 
   spec.add_development_dependency 'minitest'

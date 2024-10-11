@@ -223,7 +223,7 @@ Currently, the following test files are available:
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/dariuspirvulescu/feet.
+Bug reports and pull requests are welcome on GitHub at https://github.com/panacotar/feet.
 
 ## License
 
